@@ -1,376 +1,365 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>hello</title>
-  <meta name="description" content="一个小而美的静态网页示例，包含响应式布局与主题切换。" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #0f1724;
-      --card: rgba(255,255,255,0.04);
-      --text: #e6eef8;
-      --muted: #9fb0c8;
-      --accent: #6ee7b7;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --radius: 14px;
-    }
-    [data-theme="light"]{
-      --bg: #f6fbff;
-      --card: #ffffff;
-      --text: #07203a;
-      --muted: #4b6478;
-      --accent: #0ea5a0;
-      --glass: rgba(2,6,23,0.03);
-      --glass-2: rgba(2,6,23,0.02);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云端工作台 - 您的智能助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:
-        radial-gradient(800px 400px at 10% 10%, rgba(110,231,183,0.06), transparent 10%),
-        radial-gradient(600px 300px at 90% 90%, rgba(99,102,241,0.04), transparent 12%),
-        var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding:36px;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .container{
-      max-width:1100px;
-      margin:0 auto;
-    }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
 
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:28px;
-    }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px 32px;
+            text-align: center;
+        }
 
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      text-decoration:none;
-      color:inherit;
-    }
-    .logo{
-      width:48px;
-      height:48px;
-      border-radius:10px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,var(--accent), #7c3aed 60%);
-      box-shadow: 0 6px 18px rgba(2,6,23,0.2);
-      font-weight:700;
-      color:#032;
-      transform:translateZ(0);
-    }
-    nav{display:flex;gap:10px;align-items:center}
-    .nav-link{
-      padding:8px 12px;
-      border-radius:8px;
-      text-decoration:none;
-      color:var(--muted);
-      font-weight:600;
-      font-size:14px;
-    }
-    .nav-link:hover{color:var(--text); background:var(--glass-2)}
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
 
-    .theme-toggle{
-      background:transparent;border:1px solid var(--glass);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted)
-    }
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
 
-    main{
-      display:grid;
-      grid-template-columns: 1fr 380px;
-      gap:28px;
-      align-items:start;
-    }
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
 
-    /* HERO */
-    .hero{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      padding:28px;
-      border-radius:var(--radius);
-      box-shadow: 0 8px 24px rgba(2,6,23,0.35);
-      backdrop-filter: blur(6px);
-      border:1px solid var(--glass);
-    }
-    .hero h1{margin:0 0 10px;font-size:32px;line-height:1.05}
-    .hero p{margin:0 0 18px;color:var(--muted)}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer;
-      background:linear-gradient(90deg,var(--accent), #7c3aed);
-      color:#05231a;
-      box-shadow: 0 10px 30px rgba(99,102,241,0.12);
-    }
-    .btn.secondary{
-      background:transparent;color:var(--text);border:1px solid var(--glass);
-      box-shadow:none;font-weight:600;
-    }
+        .tab {
+            flex: 1;
+            padding: 18px 24px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-    /* Sidebar card */
-    .card{
-      background:var(--card);
-      padding:18px;
-      border-radius:14px;
-      border:1px solid var(--glass-2);
-    }
-    .stats{display:flex;gap:12px;flex-wrap:wrap}
-    .stat{flex:1;min-width:120px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);text-align:center}
-    .stat b{display:block;font-size:20px}
-    .muted{color:var(--muted);font-size:13px}
+        .tab:hover {
+            background: #ebebeb;
+            color: #333;
+        }
 
-    /* Features */
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-    .feature{padding:12px;border-radius:10px;background:var(--glass);border:1px solid var(--glass-2);min-height:90px}
-    .feature h4{margin:0 0 6px}
+        .tab.active {
+            background: white;
+            color: #667eea;
+        }
 
-    /* Gallery */
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
-    .gallery img{width:100%;height:100px;object-fit:cover;border-radius:8px;display:block}
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #667eea;
+        }
 
-    footer{margin-top:32px;color:var(--muted);font-size:13px;text-align:center}
+        .content {
+            padding: 32px;
+            min-height: 350px;
+        }
 
-    /* responsive */
-    @media (max-width:980px){
-      main{grid-template-columns:1fr}
-      .hero h1{font-size:28px}
-      .gallery img{height:90px}
-      .features{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:560px){
-      .features{grid-template-columns:1fr}
-      .gallery img{height:76px}
-      header{flex-direction:column;align-items:flex-start;gap:12px}
-    }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
 
-    /* small entrance animations */
-    .fade-up{opacity:0;transform:translateY(10px);animation:fadeUp .6s forwards}
-    .delay-1{animation-delay:.08s}.delay-2{animation-delay:.16s}.delay-3{animation-delay:.24s}
-    @keyframes fadeUp{to{opacity:1;transform:none}}
+        .tab-content.active {
+            display: block;
+        }
 
-    /* form */
-    form{display:grid;gap:10px}
-    input,textarea{
-      width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-2);background:transparent;color:var(--text);
-      resize:vertical;font-family:inherit;
-    }
-    input::placeholder, textarea::placeholder{color:var(--muted)}
-    .hint{font-size:12px;color:var(--muted)}
-    .success{color: #10b981;font-weight:700}
-  </style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .tool-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-card h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            background: #f9f9f9;
+            padding: 24px;
+            border-radius: 8px;
+            margin-top: 24px;
+        }
+
+        .contact-info h3 {
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            margin-bottom: 12px;
+        }
+
+        .contact-info strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
 </head>
-<body data-theme="dark">
-  <div class="container">
-    <header>
-      <a class="brand" href="#">
-        <div class="logo">S</div>
-        <div>
-          <div style="font-weight:700">随意站点</div>
-          <div style="font-size:12px;color:var(--muted)">静态网页示例 · 单文件</div>
-        </div>
-      </a>
-
-      <nav>
-        <a class="nav-link" href="#features">特点</a>
-        <a class="nav-link" href="#gallery">画廊</a>
-        <a class="nav-link" href="#contact">联系</a>
-        <button id="themeBtn" class="theme-toggle" title="切换主题">切换主题</button>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero card fade-up">
-        <h1>欢迎来到“随意站点”</h1>
-        <p>这是一个示例静态页面：响应式、无依赖、带主题切换和小交互。你可以随意复制、修改或直接用作模板。</p>
-
-        <div class="cta-row">
-          <button class="btn" id="showToastBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            点击我
-          </button>
-          <a class="btn secondary" href="#contact">发送消息</a>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☁️ 云端工作台</h1>
+            <p>您的一站式智能办公助手</p>
         </div>
 
-        <div style="margin-top:18px" class="fade-up delay-1">
-          <div class="features" id="features">
-            <div class="feature">
-              <h4>轻量</h4>
-              <div class="muted">单文件，无外部库</div>
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'home')">首页</button>
+            <button class="tab" onclick="openTab(event, 'tools')">工具箱</button>
+            <button class="tab" onclick="openTab(event, 'features')">特色功能</button>
+            <button class="tab" onclick="openTab(event, 'about')">关于我们</button>
+        </div>
+
+        <div class="content">
+            <div id="home" class="tab-content active">
+                <h2>欢迎来到云端工作台</h2>
+                <p>云端工作台是一个集成了多种实用工具的在线平台,旨在提升您的工作效率和生产力。无论您是开发者、设计师还是内容创作者,这里都有适合您的工具。</p>
+                <p>我们的平台完全基于Web技术构建,无需安装任何软件,随时随地通过浏览器访问即可使用。所有工具都经过精心设计,确保简洁易用。</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>12+</h3>
+                        <p>实用工具</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>10K+</h3>
+                        <p>活跃用户</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>99.9%</h3>
+                        <p>运行时间</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature">
-              <h4>响应式</h4>
-              <div class="muted">桌面/平板/手机自适应</div>
+
+            <div id="tools" class="tab-content">
+                <h2>工具箱</h2>
+                <p>我们提供多种实用工具,帮助您轻松完成日常工作任务:</p>
+                
+                <div class="tool-grid">
+                    <div class="tool-card">
+                        <h3>📝 文本编辑器</h3>
+                        <p>在线编写和编辑文本,支持Markdown格式,实时预览效果。</p>
+                    </div>
+                    <div class="tool-card">
+                        <h3>🎨 图片处理</h3>
+                        <p>快速调整图片大小、裁剪、添加滤镜,无需安装复杂软件。</p>
+                    </div>
+                    <div class="tool-card">
+                        <h3>🔗 链接缩短</h3>
+                        <p>将长链接转换为短链接,方便分享和记忆。</p>
+                    </div>
+                    <div class="tool-card">
+                        <h3>🧮 计算器</h3>
+                        <p>功能强大的科学计算器,支持复杂数学运算。</p>
+                    </div>
+                    <div class="tool-card">
+                        <h3>📊 数据转换</h3>
+                        <p>JSON、XML、CSV等数据格式互转,开发必备工具。</p>
+                    </div>
+                    <div class="tool-card">
+                        <h3>🎵 音频工具</h3>
+                        <p>音频格式转换、剪辑、合并等功能一应俱全。</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature">
-              <h4>可定制</h4>
-              <div class="muted">颜色、字体与布局都容易改</div>
+
+            <div id="features" class="tab-content">
+                <h2>特色功能</h2>
+                <p>云端工作台不仅提供丰富的工具,还具备以下特色功能:</p>
+                <ul class="feature-list">
+                    <li>无需注册即可使用基础功能</li>
+                    <li>所有处理都在本地完成,保护您的隐私安全</li>
+                    <li>响应式设计,完美支持手机、平板和电脑</li>
+                    <li>快速加载,无广告干扰</li>
+                    <li>定期更新,不断添加新工具</li>
+                    <li>开源代码,欢迎社区贡献</li>
+                    <li>支持暗黑模式,保护您的眼睛</li>
+                    <li>云端同步,跨设备访问您的工作</li>
+                    <li>快捷键支持,提升操作效率</li>
+                    <li>批量处理功能,节省宝贵时间</li>
+                </ul>
             </div>
-          </div>
-        </div>
 
-        <div style="margin-top:18px" class="fade-up delay-2">
-          <h3 style="margin:0 0 8px">快速画廊</h3>
-          <div class="gallery" id="gallery">
-            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=1200&q=60&auto=format&fit=crop&s=1" alt="示例1">
-            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&q=60&auto=format&fit=crop&s=2" alt="示例2">
-            <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fc4?w=1200&q=60&auto=format&fit=crop&s=3" alt="示例3">
-          </div>
-        </div>
-      </section>
-
-      <aside class="card fade-up delay-3" aria-label="侧边栏">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div>
-            <div style="font-weight:700">统计概览</div>
-            <div class="muted" style="font-size:13px">实时假数据 · 仅供演示</div>
-          </div>
-          <div style="font-size:12px;color:var(--muted)">v0.1</div>
-        </div>
-
-        <div class="stats" role="list">
-          <div class="stat" role="listitem">
-            <b id="visits">4,289</b>
-            <div class="muted">访问量</div>
-          </div>
-          <div class="stat" role="listitem">
-            <b id="members">1,024</b>
-            <div class="muted">注册用户</div>
-          </div>
-          <div class="stat" role="listitem">
-            <b id="uptime">99.98%</b>
-            <div class="muted">可用率</div>
-          </div>
-        </div>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid var(--glass-2)">
-
-        <div>
-          <div style="font-weight:700;margin-bottom:8px">联系我们</div>
-          <form id="contact" onsubmit="return handleForm(event)" novalidate>
-            <input id="name" placeholder="你的姓名" required />
-            <input id="email" type="email" placeholder="邮箱 (example@mail.com)" required />
-            <textarea id="message" placeholder="写点什么..." rows="4" required></textarea>
-            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
-              <div class="hint">或直接发送邮件到 <strong>hello@example.com</strong></div>
-              <button type="submit" class="btn" style="padding:8px 12px">发送</button>
+            <div id="about" class="tab-content">
+                <h2>关于我们</h2>
+                <p>云端工作台由一群热爱技术的开发者创建,我们的目标是让每个人都能轻松使用专业级的在线工具。</p>
+                <p>我们相信技术应该让工作变得更简单,而不是更复杂。因此,我们坚持简洁的设计理念,确保每个工具都直观易用。</p>
+                <p>项目始于2024年,目前已经服务了来自全球各地的数万名用户。我们会持续改进和优化平台,不断添加新功能。</p>
+                
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <p><strong>邮箱:</strong> support@cloudworkspace.com</p>
+                    <p><strong>GitHub:</strong> github.com/cloudworkspace</p>
+                    <p><strong>Twitter:</strong> @cloudworkspace</p>
+                    <p><strong>反馈:</strong> 欢迎通过邮件或社交媒体向我们提供建议</p>
+                </div>
             </div>
-            <div id="formResult" class="hint" style="margin-top:8px"></div>
-          </form>
         </div>
-      </aside>
-    </main>
+    </div>
 
-    <footer>
-      © <span id="year"></span> 随意站点 — 纯静态示例 · 设计 & 编码随意使用
-    </footer>
-  </div>
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
 
-  <script>
-    // small utilities & interactions
-    ;(function(){
-      const body = document.body;
-      const themeBtn = document.getElementById('themeBtn');
-      const yearEl = document.getElementById('year');
-      const visits = document.getElementById('visits');
-      const members = document.getElementById('members');
-      const uptime = document.getElementById('uptime');
-      const showToastBtn = document.getElementById('showToastBtn');
-      const formResult = document.getElementById('formResult');
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
 
-      yearEl.textContent = new Date().getFullYear();
-
-      // pseudo-random stat tick
-      function tick(){
-        visits.textContent = (4289 + Math.floor(Math.random()*200)).toLocaleString();
-        members.textContent = (1024 + Math.floor(Math.random()*40)).toLocaleString();
-        uptime.textContent = (99.9 + Math.random()*0.09).toFixed(2) + '%';
-      }
-      setInterval(tick, 3500);
-
-      // theme toggle
-      function getTheme(){ return body.getAttribute('data-theme') || 'dark' }
-      themeBtn.addEventListener('click', ()=>{
-        const next = getTheme() === 'dark' ? 'light' : 'dark';
-        body.setAttribute('data-theme', next);
-        themeBtn.textContent = next === 'dark' ? '切换主题' : '切换主题';
-        // store in localStorage
-        try{ localStorage.setItem('site-theme', next) }catch(e){}
-      });
-      // restore
-      try{
-        const saved = localStorage.getItem('site-theme');
-        if(saved) body.setAttribute('data-theme', saved);
-      }catch(e){}
-
-      // simple toast-like feedback
-      showToastBtn.addEventListener('click', ()=>{
-        const t = document.createElement('div');
-        t.textContent = '已点击 — 这是一个演示提示';
-        Object.assign(t.style, {
-          position:'fixed',right:'20px',bottom:'20px',padding:'12px 16px',borderRadius:'10px',
-          background:'linear-gradient(90deg,var(--accent), #7c3aed)',color:'#031313',boxShadow:'0 8px 30px rgba(2,6,23,0.3)',zIndex:9999,opacity:0
-        });
-        document.body.appendChild(t);
-        requestAnimationFrame(()=> t.style.opacity = 1);
-        setTimeout(()=> {
-          t.style.opacity = 0;
-          setTimeout(()=> t.remove(), 400);
-        }, 2200);
-      });
-
-      // simple form handler (front-end only)
-      window.handleForm = function(e){
-        e.preventDefault();
-        formResult.textContent = '';
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-        if(!name || !email || !message){
-          formResult.textContent = '请完整填写表单的所有字段。';
-          return false;
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
-        // rudimentary email check
-        if(!/^\S+@\S+\.\S+$/.test(email)){
-          formResult.textContent = '请输入有效的邮箱地址。';
-          return false;
-        }
-        formResult.innerHTML = '<span class="success">已在本地处理（演示） — 谢谢！</span>';
-        // clear inputs after a short delay
-        setTimeout(()=>{ e.target.reset(); }, 800);
-        return false;
-      };
-
-      // reveal animations (simple)
-      document.querySelectorAll('.fade-up').forEach(el=>{
-        // delay to let layout paint
-        setTimeout(()=> el.classList.add('visible'), 20);
-        // trigger CSS animation by toggling a class -> we already have CSS animation via .fade-up
-        el.style.animationPlayState = 'running';
-      });
-
-      // accessibility: keyboard shortcut T to toggle theme
-      window.addEventListener('keydown', (ev)=>{
-        if(ev.key.toLowerCase() === 't' && (ev.ctrlKey || ev.metaKey)){
-          ev.preventDefault();
-          themeBtn.click();
-        }
-      });
-    })();
-  </script>
+    </script>
 </body>
 </html>
-
